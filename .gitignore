@@ -1,0 +1,20 @@
+# Dataset: NO se sube, se monta como volumen
+*.csv
+
+# Credenciales reales (se sube .env.example)
+.env
+
+# Resultados de Hadoop
+output/
+
+Generar tu dataset.py
+
+generar_dataset.py
+
+__pycache__/
+
+# Instalador de Hadoop (pesa ~700 MB)
+*.tar.gz
+
+# Configuracion del editor
+.vscode/
