@@ -12,7 +12,6 @@
 ├── .gitignore              # incluye *.csv y .env
 ├── .env.example
 ├── docker-compose.yml
-├── generar_dataset.py
 ├── hadoop/
 │   ├── Dockerfile          # Debian + OpenJDK 17 + Python 3 + Hadoop 3.3.6 (standalone) + OpenSSH
 │   └── entrypoint.sh       # genera llaves SSH y arranca sshd
@@ -35,13 +34,15 @@
 ```bash
 git clone https://github.com/Tadand-64/Examen-2do-parcial.git
 cd Examen-2do-parcial
-python3 generar_dataset.py 125052403     # genera ventas_125052403.csv (NO se sube al repo)
+python3 generar_dataset.py 125052403     # script proporcionado por el profesor; genera ventas_125052403.csv (NO se sube al repo)
 cp .env.example .env                     # credenciales y matrícula
 docker compose up -d --build
 ```
 El CSV se monta como volumen de solo lectura en `/data/input`. Las carpetas `mapreduce/` y `scripts/` también se montan, así que un cambio en el mapper o el reducer no requiere reconstruir la imagen.
 
 ## Evidencias
+Las salidas completas de cada prueba están en la carpeta [`evidencias/`](evidencias/).
+
 Todas se generan con un solo script y quedan en `evidencias/`:
 - Windows (PowerShell): `powershell -ExecutionPolicy Bypass -File scripts\evidencias.ps1`
 - Linux / Git Bash: `bash scripts/evidencias.sh`
