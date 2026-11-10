@@ -1,0 +1,54 @@
+services:
+  hadoop:
+    build: ./hadoop
+    container_name: hadoop
+    hostname: hadoop
+    volumes:
+      - ./ventas_${MATRICULA}.csv:/data/input/ventas_${MATRICULA}.csv:ro  # dataset, solo lectura
+      - ./mapreduce:/opt/mapreduce:ro                                     # mapper, reducer, secuencial
+      - ./output:/data/output                                             # salida del job
+      - ssh_keys:/keys                                                    # llave para api
+    networks:
+      - bigdata
+
+  db:
+    image: postgres:16
+    container_name: db
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data          # volumen nombrado = persistencia
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - bigdata
+
+  api:
+    build: ./api
+    container_name: api
+    env_file: .env
+    environment:
+      DB_HOST: db                                # se conecta por nombre de servicio
+    ports:
+      - "8000:8000"                              # host:contenedor
+    volumes:
+      - ./output:/data/output:ro
+      - ./scripts:/scripts:ro
+      - ssh_keys:/keys:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      hadoop:
+        condition: service_started
+    networks:
+      - bigdata
+
+volumes:
+  pgdata:
+  ssh_keys:
+
+networks:
+  bigdata:
+    driver: bridge
