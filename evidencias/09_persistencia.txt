@@ -1,0 +1,36 @@
+﻿> docker compose down
+ Container api Stopping 
+ Container api Stopped 
+ Container api Removing 
+ Container api Removed 
+ Container hadoop Stopping 
+ Container db Stopping 
+ Container hadoop Stopped 
+ Container hadoop Removing 
+ Container db Stopped 
+ Container db Removing 
+ Container hadoop Removed 
+ Container db Removed 
+ Network examen2doparcial_bigdata Removing 
+ Network examen2doparcial_bigdata Removed 
+> docker compose up -d
+ Network examen2doparcial_bigdata Creating 
+ Network examen2doparcial_bigdata Creating 
+ Network examen2doparcial_bigdata Created 
+ Network examen2doparcial_bigdata Created 
+ Container db Creating 
+ Container hadoop Creating 
+ Container hadoop Created 
+ Container db Created 
+ Container api Creating 
+ Container api Created 
+ Container hadoop Starting 
+ Container db Starting 
+ Container hadoop Started 
+ Container db Started 
+ Container db Waiting 
+ Container db Healthy 
+ Container api Starting 
+ Container api Started 
+> GET /resultados/T001 (despues de reiniciar)
+{"tienda":"T001","ingreso_total":1199333933.24,"num_registros":146770,"ticket_promedio":8171.52}

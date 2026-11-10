@@ -1,0 +1,1 @@
+﻿OK: MapReduce y secuencial dan exactamente el mismo resultado
